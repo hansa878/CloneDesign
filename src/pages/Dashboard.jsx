@@ -1,11 +1,10 @@
 
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import { Line, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement } from 'chart.js';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { useState } from 'react';
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -13,7 +12,6 @@ ChartJS.register(
   LineElement,
   BarElement
 );
-
 
 export default function Dashboard() {
   const [date, setDate] = useState(new Date());
@@ -57,45 +55,10 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100 text-sm">
-      {/* Left Sidebar */}
-      <aside className="w-64 bg-[#4F46E5] text-white p-6 flex flex-col">
-        <div className="text-2xl font-bold mb-10 flex items-center gap-2">
-          <div className="bg-orange-500 w-8 h-8 flex items-center justify-center rounded-full text-white text-xl">A</div>
-          Akademi
-        </div>
-
-        <nav className="space-y-4">
-          {[
-            { name: "Dashboard", emoji: "🏠", path: "/" },
-            { name: "Students", emoji: "🎓", path: "/students" },
-            { name: "Teachers", emoji: "🧑‍🏫", path: "/teachers" },
-            { name: "Events", emoji: "📅", path: "/events" },
-            { name: "Finance", emoji: "💰", path: "/finance" },
-            { name: "Food", emoji: "🍔", path: "/food" },
-            { name: "User", emoji: "💬", path: "/user" },
-            { name: "Latest Activity", emoji: "🕓", path: "/latest-activity" },
-          ].map((item, idx) => (
-            <Link
-              key={idx}
-              to={item.path}
-              className="flex items-center gap-2 px-3 py-2 hover:bg-indigo-700 rounded transition"
-            >
-              <span>{item.emoji}</span>
-              {item.name}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="mt-auto text-xs text-indigo-200 pt-10">
-          Akademi - School Dashboard <br />
-          Made with ❤️ by Ikram
-        </div>
-      </aside>
-
+    <div className="flex">
       {/* Main Content */}
       <main className="flex-1 p-6 space-y-6 overflow-auto">
-        {/* Header with search */}
+        {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-4">
             <input
@@ -114,7 +77,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Overview cards */}
+        {/* Overview Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
             { label: "Students", value: 932, emoji: "🎓" },
@@ -130,43 +93,40 @@ export default function Dashboard() {
           ))}
         </div>
 
-       {/* School Performance Chart */}
-      <div className="bg-white p-6 rounded-xl shadow">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="font-semibold text-lg">School Performance</h2>
-          <div className="flex space-x-4 text-xs text-gray-500 font-medium">
-            <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-orange-300" /> This Week</div>
-            <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-orange-500" /> Last Week</div>
-          </div>
-        </div>
-        <Line data={lineData} options={{ responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true }}}} />
-      </div>
-
-      {/* Calendar + Finance */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-        {/* Calendar */}
-        <div className="bg-white p-6 rounded-xl shadow">
-          <h2 className="font-semibold mb-4">School Calendar</h2>
-          <Calendar value={date} onChange={setDate} />
-        </div>
-
-        {/* Finance Chart */}
+        {/* School Performance */}
         <div className="bg-white p-6 rounded-xl shadow">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="font-semibold text-lg">School Finance</h2>
+            <h2 className="font-semibold text-lg">School Performance</h2>
             <div className="flex space-x-4 text-xs text-gray-500 font-medium">
               <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-orange-300" /> This Week</div>
               <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-orange-500" /> Last Week</div>
             </div>
           </div>
-          <Bar data={barData} options={{ responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true }}}} />
+          <Line data={lineData} options={{ responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true }}}} />
         </div>
-      </div>
 
+        {/* Calendar & Finance */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+          <div className="bg-white p-6 rounded-xl shadow">
+            <h2 className="font-semibold mb-4">School Calendar</h2>
+            <Calendar value={date} onChange={setDate} />
+          </div>
 
+          <div className="bg-white p-6 rounded-xl shadow">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="font-semibold text-lg">School Finance</h2>
+              <div className="flex space-x-4 text-xs text-gray-500 font-medium">
+                <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-orange-300" /> This Week</div>
+                <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-orange-500" /> Last Week</div>
+              </div>
+            </div>
+            <Bar data={barData} options={{ responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true }}}} />
+          </div>
+        </div>
 
         {/* Tables Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+          {/* Unpaid Tuition */}
           <div className="bg-white p-4 rounded-xl shadow">
             <h2 className="font-semibold mb-4">Unpaid Student Tuition</h2>
             <div className="space-y-2 text-sm">
@@ -184,14 +144,12 @@ export default function Dashboard() {
             </div>
           </div>
 
+          {/* School Expense */}
           <div className="bg-white p-4 rounded-xl shadow">
             <h2 className="font-semibold mb-4">School Expense</h2>
             <div className="space-y-2 text-sm">
               {["Complete", "Pending", "Canceled"].map((status, idx) => (
-                <div
-                  key={idx}
-                  className="flex justify-between items-center border-b py-2"
-                >
+                <div key={idx} className="flex justify-between items-center border-b py-2">
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 bg-red-400 rounded-full" />
                     <div>
@@ -200,13 +158,12 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <p className="font-semibold">$50,036</p>
-                 <span className={`text-sm ${
-  status === "Complete" ? "text-green-500" :
-  status === "Pending" ? "text-yellow-500" : "text-red-500"
-}`}>
-  {status}
-</span>
-
+                  <span className={`text-sm ${
+                    status === "Complete" ? "text-green-500" :
+                    status === "Pending" ? "text-yellow-500" : "text-red-500"
+                  }`}>
+                    {status}
+                  </span>
                 </div>
               ))}
             </div>
@@ -215,7 +172,7 @@ export default function Dashboard() {
       </main>
 
       {/* Right Sidebar */}
-      <aside className="w-80 p-4 space-y-6 bg-gray-50 border-l">
+      <aside className="w-80 p-4 space-y-6 bg-gray-50 border-l hidden lg:block">
         <div className="bg-white p-4 rounded-xl shadow">
           <h3 className="font-semibold mb-4">Recent Students</h3>
           <div className="space-y-3">
@@ -254,16 +211,11 @@ export default function Dashboard() {
         <div className="bg-white p-4 rounded-xl shadow">
           <h3 className="font-semibold mb-4">Current Foods Menu</h3>
           <div className="space-y-2">
-            {["Beef Steak", "Pancake with Honey", "Japanese Ramen"].map(
-              (item, i) => (
-                <div
-                  key={i}
-                  className="bg-purple-100 px-3 py-2 rounded-lg text-gray-700"
-                >
-                  {item}
-                </div>
-              )
-            )}
+            {["Beef Steak", "Pancake with Honey", "Japanese Ramen"].map((item, i) => (
+              <div key={i} className="bg-purple-100 px-3 py-2 rounded-lg text-gray-700">
+                {item}
+              </div>
+            ))}
           </div>
         </div>
       </aside>
