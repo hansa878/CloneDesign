@@ -10,6 +10,8 @@ import Food from './pages/Food';
 import User from './pages/User';
 import Chat from './pages/Chat';
 import LatestActivity from './pages/LatestActivity';
+import NewTeacher from './pages/Addnewteacher';
+import StudentForm from './pages/Addnewstudents';
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
           <Route path="/user" element={<User />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/latest-activity" element={<LatestActivity />} />
+          <Route path="/add-new-teacher" element={<NewTeacher />}/>
+          <Route path="/add-new-student" element={ <StudentForm />} />
         </Routes>
       </main>
     </Router>
