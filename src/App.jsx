@@ -12,11 +12,12 @@ import Chat from './pages/Chat';
 import LatestActivity from './pages/LatestActivity';
 import NewTeacher from './pages/Addnewteacher';
 import StudentForm from './pages/Addnewstudents';
+import TeacherDetails from './pages/Teacherdetails';
+import StudentDetails from './pages/Studentdetails';
 
 function App() {
   return (
     <Router>
-      {/* Page Content only */}
       <main className="p-6">
         <Routes>
           <Route path="/" element={<Dashboard />} />
@@ -28,8 +29,10 @@ function App() {
           <Route path="/user" element={<User />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/latest-activity" element={<LatestActivity />} />
-          <Route path="/add-new-teacher" element={<NewTeacher />}/>
-          <Route path="/add-new-student" element={ <StudentForm />} />
+          <Route path="/add-new-teacher" element={<NewTeacher />} />
+          <Route path="/add-new-student" element={<StudentForm />} />
+          <Route path="/teacher-details" element={<TeacherDetails />} />
+          <Route path="/student-details" element={<StudentDetails />} />
         </Routes>
       </main>
     </Router>
